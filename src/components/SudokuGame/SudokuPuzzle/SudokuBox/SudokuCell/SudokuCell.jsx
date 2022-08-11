@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from "react";
-import { SudokuContext } from "../../../../contexts/SudokuContext";
-import InputSquare from "../../../InputSquare/InputSquare";
+import { SudokuContext } from "../../../../../contexts/SudokuContext";
+import InputSquare from "../../../../InputSquare/InputSquare";
 import styles from "./SudokuCell.module.scss";
 
 function SudokuCell({ boxIndex, cellIndex, initialValue }) {
@@ -8,9 +8,8 @@ function SudokuCell({ boxIndex, cellIndex, initialValue }) {
 	const [value, setValue] = useState(0);
 
 	useEffect(() => {
-		const newGameState = gameState;
-		newGameState[boxIndex][cellIndex] = value;
-		setGameState(newGameState);
+		gameState[boxIndex][cellIndex] = value;
+		setGameState(gameState);
 	}, [value]);
 
 	return (
