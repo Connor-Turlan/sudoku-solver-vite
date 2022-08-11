@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import styles from "./InputSquare.module.scss";
 
-function InputSquare({ initialValue, onUpdate }) {
-	const [myValue, setMyValue] = useState(initialValue);
+function InputSquare({ value, onUpdate }) {
+	/* const [myValue, setMyValue] = useState(initialValue); */
 	const [isEditing, setEditing] = useState(false);
 
 	const handleChange = (event) => {
@@ -11,10 +11,10 @@ function InputSquare({ initialValue, onUpdate }) {
 
 		// validate and set the value.
 		if (/[1-9]?/.test(event.target.value)) {
-			setMyValue(event.target.value);
+			onUpdate(event.target.value);
 			setEditing(false);
 		} else {
-			setMyValue("");
+			onUpdate(event.target.value);
 		}
 	};
 
@@ -22,30 +22,27 @@ function InputSquare({ initialValue, onUpdate }) {
 		setEditing(true);
 	};
 
-	useEffect(() => {
-		onUpdate(myValue);
-	}, [myValue]);
-
-	const inputStyle = isEditing
-		? [styles.InputSquare__Editing, styles.InputSquare].join(" ")
-		: styles.InputSquare;
+	const baseStyle = styles.InputSquare;
+	const editStyle = [styles.InputSquare__Editing, styles.InputSquare].join(
+		" "
+	);
 
 	return (
 		<>
 			{isEditing ? (
 				<input
-					className={inputStyle}
+					className={editStyle}
 					type="text"
 					onChange={handleChange}
-					value={myValue}
+					value={value}
 					maxLength={1}
 				/>
 			) : (
 				<input
-					className={inputStyle}
+					className={baseStyle}
 					type="button"
 					onClick={enableEditing}
-					value={myValue}
+					value={value}
 				/>
 			)}
 		</>

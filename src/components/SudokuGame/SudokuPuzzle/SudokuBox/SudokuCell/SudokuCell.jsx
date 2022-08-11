@@ -4,18 +4,16 @@ import InputSquare from "../../../../InputSquare/InputSquare";
 import styles from "./SudokuCell.module.scss";
 
 function SudokuCell({ boxIndex, cellIndex, initialValue }) {
-	const { gameState, setGameState } = useContext(SudokuContext);
-	const [value, setValue] = useState(0);
+	const { gameState, updateCell } = useContext(SudokuContext);
 
-	useEffect(() => {
-		gameState[boxIndex][cellIndex] = value;
-		setGameState(gameState);
-	}, [value]);
+	const onUpdate = (newValue) => {
+		updateCell(boxIndex, cellIndex, newValue);
+	};
 
 	return (
 		<InputSquare
-			onUpdate={setValue}
-			initialValue={gameState[boxIndex][cellIndex]}
+			onUpdate={onUpdate}
+			value={gameState[boxIndex][cellIndex] || ""}
 		/>
 	);
 }
