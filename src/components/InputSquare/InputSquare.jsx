@@ -18,7 +18,8 @@ function InputSquare({ value, onUpdate }) {
 		}
 	};
 
-	const enableEditing = () => {
+	const handleClick = () => {
+		onUpdate("");
 		setEditing(true);
 	};
 
@@ -41,7 +42,7 @@ function InputSquare({ value, onUpdate }) {
 				<input
 					className={baseStyle}
 					type="button"
-					onClick={enableEditing}
+					onClick={handleClick}
 					value={value}
 				/>
 			)}

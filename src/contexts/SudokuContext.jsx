@@ -25,16 +25,11 @@ export const SudokuContextProvider = ({ children }) => {
 		setGameState(newGameState);
 	};
 
-	useEffect(() => {
-		console.log("update");
-	}, [gameState]);
-
 	const context = { gameState, setGameState, updateCell };
 
 	return (
 		<SudokuContext.Provider value={context}>
 			{children}
-			<button onClick={handleClick}>Click</button>
 		</SudokuContext.Provider>
 	);
 };
