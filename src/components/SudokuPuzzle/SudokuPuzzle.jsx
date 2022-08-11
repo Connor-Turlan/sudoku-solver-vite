@@ -6,7 +6,6 @@ export const SudokuContext = createContext();
 
 function SudokuPuzzle({ state, setState }) {
 	// create an empty sudoku grid.
-
 	if (!state)
 		setState(
 			Array(9)

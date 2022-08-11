@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./App.module.scss";
 import SudokuPuzzle from "./components/SudokuPuzzle/SudokuPuzzle";
-import { convert } from "./utilities/sudokuSolver";
+import solvePuzzle, { convert } from "./utilities/sudokuSolver";
 
 function App() {
 	/* const initial = Array(9)
@@ -29,13 +29,13 @@ function App() {
 	};
 
 	const solveSudoku = () => {
-		setGame(convert(game));
+		setGame(solvePuzzle(game));
 	};
 
 	return (
 		<div className={styles.App}>
 			<SudokuPuzzle state={game} setState={setGame} />
-			<button onClick={outputSudoku}>Solve</button>
+			<button onClick={solveSudoku}>Solve</button>
 		</div>
 	);
 }
