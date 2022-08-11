@@ -4,7 +4,7 @@ import { SudokuContext } from "../../SudokuPuzzle";
 import styles from "./SudokuCell.module.scss";
 
 function SudokuCell({ boxIndex, cellIndex }) {
-	const { gameState, updateCell } = useContext(SudokuContext);
+	const { state, updateCell } = useContext(SudokuContext);
 
 	const onUpdate = (newValue) => {
 		updateCell(boxIndex, cellIndex, newValue);
@@ -13,7 +13,7 @@ function SudokuCell({ boxIndex, cellIndex }) {
 	return (
 		<InputSquare
 			onUpdate={onUpdate}
-			value={gameState[boxIndex][cellIndex] || ""}
+			value={state[boxIndex][cellIndex] || ""}
 		/>
 	);
 }

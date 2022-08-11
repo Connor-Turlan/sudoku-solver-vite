@@ -4,26 +4,29 @@ import styles from "./SudokuPuzzle.module.scss";
 
 export const SudokuContext = createContext();
 
-function SudokuPuzzle({ initial, onUpdate }) {
+function SudokuPuzzle({ state, setState, onUpdate }) {
 	// create an empty sudoku grid.
-	const game = Array(9)
-		.fill(undefined)
-		.map(() => new Array(9).fill(0));
-	const [gameState, setGameState] = useState(initial || game);
+
+	if (!state)
+		setState(
+			Array(9)
+				.fill(undefined)
+				.map(() => new Array(9).fill(0))
+		);
 
 	// update a specified cell in the gameState.
 	const updateCell = (box, cell, value) => {
-		const newGameState = gameState.slice();
-		newGameState[box][cell] = value;
-		setGameState(newGameState);
+		const newState = state.slice();
+		newState[box][cell] = value;
+		setState(newState);
 	};
 
 	// return the game state using the provided onUpdate function.
 	useEffect(() => {
-		if (onUpdate) onUpdate(gameState);
-	}, [gameState]);
+		if (onUpdate) onUpdate(state);
+	}, [state]);
 
-	const context = { gameState, updateCell };
+	const context = { state, updateCell };
 
 	return (
 		<SudokuContext.Provider value={context}>
