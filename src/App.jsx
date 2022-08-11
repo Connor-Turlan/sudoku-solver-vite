@@ -1,13 +1,12 @@
 import styles from "./App.module.scss";
-import SudokuGame from "./components/SudokuGame/SudokuGame";
-import SudokuPuzzle from "./components/SudokuGame/SudokuPuzzle/SudokuPuzzle";
+import SudokuPuzzle from "./components/SudokuPuzzle/SudokuPuzzle";
 
 function App() {
 	const getState = () => {};
 
 	return (
 		<div className={styles.App}>
-			<SudokuGame />
+			<SudokuPuzzle onUpdate={console.log} />
 			<button>Solve</button>
 		</div>
 	);
