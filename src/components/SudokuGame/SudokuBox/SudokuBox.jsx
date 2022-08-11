@@ -7,8 +7,9 @@ function SudokuBox({ index }) {
 			{[...Array(9).keys()].map((childIndex) => (
 				<SudokuCell
 					key={`cell_${index}_${childIndex}`}
-					index={childIndex}
-					initialValue={" "}
+					boxIndex={index}
+					cellIndex={childIndex}
+					initialValue={""}
 				/>
 			))}
 		</section>

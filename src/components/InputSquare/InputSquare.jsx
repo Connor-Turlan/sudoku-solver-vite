@@ -34,14 +34,15 @@ function InputSquare({ initialValue, onUpdate }) {
 		<>
 			{isEditing ? (
 				<input
-					className={styles.InputSquare}
+					className={inputStyle}
 					type="text"
 					onChange={handleChange}
 					value={myValue}
+					maxLength={1}
 				/>
 			) : (
 				<input
-					className={styles.InputSquare}
+					className={inputStyle}
 					type="button"
 					onClick={enableEditing}
 					value={myValue}

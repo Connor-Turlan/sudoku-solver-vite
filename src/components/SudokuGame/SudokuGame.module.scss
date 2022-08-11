@@ -1,0 +1,6 @@
+.SudokuGame {
+	display: grid;
+	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+
+	border: 2px solid black;
+}
