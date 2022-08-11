@@ -4,7 +4,7 @@ import styles from "./SudokuPuzzle.module.scss";
 
 export const SudokuContext = createContext();
 
-function SudokuPuzzle({ state, setState, onUpdate }) {
+function SudokuPuzzle({ state, setState }) {
 	// create an empty sudoku grid.
 
 	if (!state)
@@ -20,11 +20,6 @@ function SudokuPuzzle({ state, setState, onUpdate }) {
 		newState[box][cell] = value;
 		setState(newState);
 	};
-
-	// return the game state using the provided onUpdate function.
-	useEffect(() => {
-		if (onUpdate) onUpdate(state);
-	}, [state]);
 
 	const context = { state, updateCell };
 

@@ -7,7 +7,7 @@ function SudokuCell({ boxIndex, cellIndex }) {
 	const { state, updateCell } = useContext(SudokuContext);
 
 	const onUpdate = (newValue) => {
-		updateCell(boxIndex, cellIndex, newValue);
+		updateCell(boxIndex, cellIndex, parseInt(newValue));
 	};
 
 	return (
