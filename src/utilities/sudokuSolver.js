@@ -37,14 +37,15 @@ const usedInRow = (puzzle, row, num) => {
 };
 
 const usedInCol = (puzzle, col, num) => {
-	return puzzle
+	return puzzle.flatMap((row) => row[col]).includes(num);
+	/* return puzzle
 		.map((row) => row.filter((col_item, col_index) => col_index === col))
-		.includes(num);
+		.includes(num); */
 };
 
 const usedInBox = (puzzle, x, y, num) => {
-	for (let i = y; i <= y + 3; i++) {
-		for (let j = x; j <= x + 3; j++) {
+	for (let i = y * 3; i <= y + 2; i++) {
+		for (let j = x * 3; j <= x + 2; j++) {
 			if (puzzle[j][i] == num) return true;
 		}
 	}
@@ -55,9 +56,12 @@ const isSafe = (puzzle, row, col, num) => {
 	let urow = usedInRow(puzzle, row, num);
 	let ucol = usedInCol(puzzle, col, num);
 	let ubox = usedInBox(puzzle, Math.floor(row / 3), Math.floor(col / 3), num);
-	// console.log(urow, ucol, ubox);
+	/* console.log(row, col, num, puzzle[row]);
+	console.log(Math.floor(row / 3), Math.floor(col / 3)); */
+	console.log(`- ${row} | ${col} n: ${num}`, urow, ucol, ubox);
 	return !urow && !ucol && !ubox;
 };
+
 const getUnassignedLocation = (puzzle) => {
 	//TODO: rewrite using Array.find()
 	for (let row = 0; row < 9; row++) {
@@ -68,36 +72,75 @@ const getUnassignedLocation = (puzzle) => {
 	return [9, 9];
 };
 
-const solveRowedPuzzle = (puzzle) => {
+const solveRowedPuzzle_recursive = (puzzle) => {
 	// get the next free cell.
 	const [row, col] = getUnassignedLocation(puzzle);
-	console.log(row, col);
+	//console.log(row, col);
 
 	// if the cell is 9,9, the sudoku is solved.
-	if (row == 9 && col == 9) return true;
+	if (row == 9 && col == 9) {
+		console.log("success");
+		return true;
+	}
 
 	// otherwise try insert 1 thru 9
 	for (let i = 1; i <= 9; i++) {
+		console.log(`try row:`, puzzle[row]);
 		if (isSafe(puzzle, row, col, i)) {
 			puzzle[row][col] = i;
-			if (solveRowedPuzzle(puzzle)) {
+			if (solveRowedPuzzle_recursive(puzzle)) {
 				return true;
 			}
 		}
 	}
 
 	// reset this cell and return.
-	console.log("unsuitable", puzzle[0]);
+	console.log("unsuitable", `row: ${row}`, puzzle[row]);
 	puzzle[row][col] = 0;
 	return false;
 };
 
+/* const solveRowedPuzzle_iterative = (puzzle) => {
+	// rolcol history
+	const solution = [...puzzle];
+	const stack = [];
+	let row, col;
+
+	// get the next free cell.
+	while (!getUnassignedLocation(solution).includes(9)) {
+		[row, col] = getUnassignedLocation(solution);
+		stack.push([row, col]);
+
+		// if the cell is 9,9, the sudoku is solved.
+		if (row == 9 && col == 9) return solution;
+
+		// otherwise try insert 1 thru 9
+		for (let i = 1; i <= 9; i++) {
+			if (isSafe(solution, row, col, i)) {
+				solution[row][col] = i;
+				continue;
+			}
+		}
+
+		// reset this cell and return.
+		console.log("unsuitable", solution[0]);
+		[row, col] = stack.pop();
+		solution[row][col] = 0;
+	}
+
+	return false;
+}; */
+
 const solvePuzzle = (puzzle) => {
 	const rowedPuzzle = convert(puzzle);
 	console.log("solving puzzle:", rowedPuzzle);
-	solveRowedPuzzle(rowedPuzzle);
-	console.log("solved puzzle:", rowedPuzzle);
-	return rowedPuzzle ? convert(rowedPuzzle) : false;
+	const solved = solveRowedPuzzle_recursive(rowedPuzzle);
+	if (solved) {
+		console.log("solved puzzle:", rowedPuzzle);
+	} else {
+		console.log("solve failed");
+	}
+	return solved ? convert(rowedPuzzle) : puzzle;
 };
 
 export default solvePuzzle;
