@@ -23,8 +23,9 @@ function InputSquare({ value, onUpdate }) {
 		setEditing(false);
 	};
 
-	const handleClick = () => {
+	const handleClick = (event) => {
 		onUpdate("");
+		event.target.focus();
 		setEditing(true);
 	};
 
@@ -35,8 +36,8 @@ function InputSquare({ value, onUpdate }) {
 
 	return (
 		<>
-			{isEditing ? (
-				<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit}>
+				{isEditing ? (
 					<input
 						className={editStyle}
 						type="text"
@@ -44,15 +45,15 @@ function InputSquare({ value, onUpdate }) {
 						value={value}
 						maxLength={1}
 					/>
-				</form>
-			) : (
-				<input
-					className={baseStyle}
-					type="button"
-					onClick={handleClick}
-					value={value}
-				/>
-			)}
+				) : (
+					<input
+						className={baseStyle}
+						type="button"
+						onClick={handleClick}
+						value={value}
+					/>
+				)}
+			</form>
 		</>
 	);
 }

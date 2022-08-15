@@ -58,7 +58,7 @@ const isSafe = (puzzle, row, col, num) => {
 	let ubox = usedInBox(puzzle, Math.floor(row / 3), Math.floor(col / 3), num);
 	/* console.log(row, col, num, puzzle[row]);
 	console.log(Math.floor(row / 3), Math.floor(col / 3)); */
-	console.log(`- ${row} | ${col} n: ${num}`, urow, ucol, ubox);
+	//console.log(`- ${row} | ${col} n: ${num}`, urow, ucol, ubox);
 	return !urow && !ucol && !ubox;
 };
 
@@ -85,7 +85,7 @@ const solveRowedPuzzle_recursive = (puzzle) => {
 
 	// otherwise try insert 1 thru 9
 	for (let i = 1; i <= 9; i++) {
-		console.log(`try row:`, puzzle[row]);
+		/* console.log(`try row:`, puzzle[row]); */
 		if (isSafe(puzzle, row, col, i)) {
 			puzzle[row][col] = i;
 			if (solveRowedPuzzle_recursive(puzzle)) {
@@ -99,37 +99,6 @@ const solveRowedPuzzle_recursive = (puzzle) => {
 	puzzle[row][col] = 0;
 	return false;
 };
-
-/* const solveRowedPuzzle_iterative = (puzzle) => {
-	// rolcol history
-	const solution = [...puzzle];
-	const stack = [];
-	let row, col;
-
-	// get the next free cell.
-	while (!getUnassignedLocation(solution).includes(9)) {
-		[row, col] = getUnassignedLocation(solution);
-		stack.push([row, col]);
-
-		// if the cell is 9,9, the sudoku is solved.
-		if (row == 9 && col == 9) return solution;
-
-		// otherwise try insert 1 thru 9
-		for (let i = 1; i <= 9; i++) {
-			if (isSafe(solution, row, col, i)) {
-				solution[row][col] = i;
-				continue;
-			}
-		}
-
-		// reset this cell and return.
-		console.log("unsuitable", solution[0]);
-		[row, col] = stack.pop();
-		solution[row][col] = 0;
-	}
-
-	return false;
-}; */
 
 const solvePuzzle = (puzzle) => {
 	const rowedPuzzle = convert(puzzle);
