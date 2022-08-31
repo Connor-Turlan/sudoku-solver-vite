@@ -100,6 +100,23 @@ const solveRowedPuzzle_recursive = (puzzle) => {
 	return false;
 };
 
+export function testPuzzle(puzzle) {
+	const rowedPuzzle = convert(puzzle);
+
+	console.log("rows: ");
+	rowedPuzzle.forEach((row) => {
+		console.log(row.toString());
+	});
+
+	console.log("columns: ");
+	for (let i = 0; i < 9; i++) {
+		const col = rowedPuzzle.flatMap((row) => row[i]);
+		console.log(col.toString());
+	}
+
+	console.log("box: ");
+}
+
 const solvePuzzle = (puzzle) => {
 	const rowedPuzzle = convert(puzzle);
 	console.log("solving puzzle:", rowedPuzzle);
