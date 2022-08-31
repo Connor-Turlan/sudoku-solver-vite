@@ -103,7 +103,7 @@ const solveRowedPuzzle_recursive = (puzzle) => {
 	}
 
 	// reset this cell and return.
-	console.log("unsuitable", `row: ${row}`, puzzle[row]);
+	//console.log("unsuitable", `row: ${row}`, puzzle[row]);
 	puzzle[row][col] = 0;
 	return false;
 };
