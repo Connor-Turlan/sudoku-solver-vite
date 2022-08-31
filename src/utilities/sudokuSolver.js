@@ -32,24 +32,38 @@ export const convert = (puzzle) => {
 	return newPuzzle;
 };
 
+const getPuzzleRow = (puzzle, i) => {
+	return puzzle[i];
+};
+
+const getPuzzleColumn = (puzzle, i) => {
+	return puzzle.flatMap((row) => row[i]);
+};
+
+const getPuzzleBox = (puzzle, i) => {
+	return [...Array(9).keys()].map((j) => {
+		let row = getRow(i, j);
+		let col = getCol(i, j);
+		return puzzle[row][col];
+	});
+};
+
 const usedInRow = (puzzle, row, num) => {
-	return puzzle[row].includes(num);
+	return getPuzzleRow(puzzle, row).includes(num);
 };
 
 const usedInCol = (puzzle, col, num) => {
-	return puzzle.flatMap((row) => row[col]).includes(num);
-	/* return puzzle
-		.map((row) => row.filter((col_item, col_index) => col_index === col))
-		.includes(num); */
+	return getPuzzleColumn(puzzle, col).includes(num);
 };
 
 const usedInBox = (puzzle, x, y, num) => {
-	for (let i = y * 3; i <= y + 2; i++) {
+	return getPuzzleBox(puzzle, y * 3 + x).includes(num);
+	/* for (let i = y * 3; i <= y + 2; i++) {
 		for (let j = x * 3; j <= x + 2; j++) {
 			if (puzzle[i][j] == num) return true;
 		}
 	}
-	return false;
+	return false; */
 };
 
 const isSafe = (puzzle, row, col, num) => {
@@ -58,7 +72,7 @@ const isSafe = (puzzle, row, col, num) => {
 	let ubox = usedInBox(puzzle, Math.floor(row / 3), Math.floor(col / 3), num);
 	/* console.log(row, col, num, puzzle[row]);
 	console.log(Math.floor(row / 3), Math.floor(col / 3)); */
-	//console.log(`- ${row} | ${col} n: ${num}`, urow, ucol, ubox);
+	console.log(`- ${row} | ${col} n: ${num}`, urow, ucol, ubox);
 	return !urow && !ucol && !ubox;
 };
 
@@ -88,7 +102,7 @@ const solveRowedPuzzle_recursive = (puzzle) => {
 		/* console.log(`try row:`, puzzle[row]); */
 		if (isSafe(puzzle, row, col, i)) {
 			puzzle[row][col] = i;
-			if (solveRowedPuzzle_recursive(puzzle)) {
+			if (solveRowedPuzzle_recursive([...puzzle])) {
 				return true;
 			}
 		}
@@ -104,17 +118,28 @@ export function testPuzzle(puzzle) {
 	const rowedPuzzle = convert(puzzle);
 
 	console.log("rows: ");
-	rowedPuzzle.forEach((row) => {
-		console.log(row.toString());
+	rowedPuzzle.forEach((row, i) => {
+		//console.log(row.toString());
+		console.log(getPuzzleRow(rowedPuzzle, i).toString());
 	});
 
 	console.log("columns: ");
 	for (let i = 0; i < 9; i++) {
-		const col = rowedPuzzle.flatMap((row) => row[i]);
-		console.log(col.toString());
+		/* const col = rowedPuzzle.flatMap((row) => row[i]);
+		console.log(col.toString()); */
+		console.log(getPuzzleColumn(rowedPuzzle, i).toString());
 	}
 
 	console.log("box: ");
+	for (let i = 0; i < 9; i++) {
+		/* const box = [...Array(9).keys()].map((j) => {
+			let row = getRow(i, j);
+			let col = getCol(i, j);
+			return rowedPuzzle[row][col];
+		});
+		console.log(box.toString()); */
+		console.log(getPuzzleBox(rowedPuzzle, i).toString());
+	}
 }
 
 const solvePuzzle = (puzzle) => {
