@@ -41,11 +41,13 @@ function App() {
 
 	return (
 		<div className={styles.App}>
+			<nav>
+				<button onClick={clearGame}>Clear</button>
+				<button onClick={saveGame}>Save</button>
+				<button onClick={loadGame}>Load</button>
+				<button onClick={solveSudoku}>Solve</button>
+			</nav>
 			<SudokuPuzzle state={game} setState={setGame} />
-			<button onClick={clearGame}>Clear</button>
-			<button onClick={saveGame}>Save</button>
-			<button onClick={loadGame}>Load</button>
-			<button onClick={solveSudoku}>Solve</button>
 		</div>
 	);
 }

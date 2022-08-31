@@ -46,7 +46,7 @@ const usedInCol = (puzzle, col, num) => {
 const usedInBox = (puzzle, x, y, num) => {
 	for (let i = y * 3; i <= y + 2; i++) {
 		for (let j = x * 3; j <= x + 2; j++) {
-			if (puzzle[j][i] == num) return true;
+			if (puzzle[i][j] == num) return true;
 		}
 	}
 	return false;
