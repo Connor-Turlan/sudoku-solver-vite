@@ -8,14 +8,16 @@ function InputSquare({ value, onUpdate }) {
 
 	const handleChange = (event) => {
 		event.preventDefault();
+		onUpdate(event.target.value);
+		setEditing(false);
 
-		// validate and set the value.
+		/* // validate and set the value.
 		if (/[1-9]?/.test(event.target.value)) {
 			onUpdate(event.target.value);
 			setEditing(false);
 		} else {
 			onUpdate(event.target.value);
-		}
+		} */
 	};
 
 	const handleSubmit = (event) => {
@@ -41,6 +43,7 @@ function InputSquare({ value, onUpdate }) {
 					<input
 						className={editStyle}
 						type="tel"
+						pattern="/d"
 						onChange={handleChange}
 						value={value}
 						maxLength={1}
