@@ -40,7 +40,7 @@ function InputSquare({ value, onUpdate }) {
 				{isEditing ? (
 					<input
 						className={editStyle}
-						type="number"
+						type="tel"
 						onChange={handleChange}
 						value={value}
 						maxLength={1}
