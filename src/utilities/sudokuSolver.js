@@ -127,8 +127,12 @@ export function testPuzzle(puzzle) {
 	}
 }
 
+const filterPuzzle = (puzzle) => {
+	return puzzle.map((row) => row.map((num) => (num ? num : 0)));
+};
+
 const solvePuzzle = (puzzle) => {
-	const rowedPuzzle = convert(puzzle);
+	const rowedPuzzle = convert(filterPuzzle(puzzle));
 	console.log("solving puzzle:", rowedPuzzle);
 	const solved = solveRowedPuzzle_recursive(rowedPuzzle);
 	if (solved) {
