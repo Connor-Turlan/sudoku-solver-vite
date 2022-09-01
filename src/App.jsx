@@ -5,7 +5,7 @@ import solvePuzzle, { testPuzzle, convert } from "./utilities/sudokuSolver";
 
 function App() {
 	const empty = Array(9)
-		.fill(undefined)
+		.fill(0)
 		.map(() => new Array(9).fill(0));
 
 	const initial = convert([
@@ -21,7 +21,7 @@ function App() {
 	]);
 
 	const [game, setGame] = useState(initial);
-	const [savedGame, setSavedGame] = useState(empty.splice());
+	const [savedGame, setSavedGame] = useState(undefined);
 
 	const clearGame = () => {
 		setGame(empty);
@@ -32,7 +32,8 @@ function App() {
 	};
 
 	const loadGame = () => {
-		setGame([...savedGame]);
+		if (savedGame) setGame([...savedGame]);
+		else console.log("saved game is null.");
 	};
 
 	const solveSudoku = () => {
