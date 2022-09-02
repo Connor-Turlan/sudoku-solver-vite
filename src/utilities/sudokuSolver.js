@@ -37,7 +37,7 @@ const getPuzzleRow = (puzzle, i) => {
 };
 
 const getPuzzleColumn = (puzzle, i) => {
-	return puzzle.flatMap((row) => row[i]);
+	return puzzle.map((row) => row[i]);
 };
 
 const getPuzzleBox = (puzzle, i) => {
