@@ -1,21 +1,22 @@
 body {
 	width: 100vw;
 	height: 100vh;
-	display: flex;
-
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-}
-
-#root {
+	margin: 0;
 }
 
 .App {
 	display: flex;
 	flex-direction: column;
 
+	width: 100vw;
+	height: 100vh;
+}
+
+.Game {
+	display: flex;
 	justify-content: center;
 	align-items: center;
-	text-align: center;
+
+	height: 100%;
+	width: 100%;
 }

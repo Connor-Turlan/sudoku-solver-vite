@@ -70,14 +70,10 @@ const isSafe = (puzzle, row, col, num) => {
 	return !urow && !ucol && !ubox;
 };
 
+// get the index of the first free location in the puzzle.
 const getUnassignedLocation = (puzzle) => {
-	//TODO: rewrite using Array.find()
-	for (let row = 0; row < 9; row++) {
-		for (let col = 0; col < 9; col++) {
-			if (puzzle[row][col] === 0) return [row, col];
-		}
-	}
-	return [9, 9];
+	let index = puzzle.flat().indexOf(0);
+	return index >= 0 ? [Math.floor(index / 9), index % 9] : [9, 9];
 };
 
 const solveRowedPuzzle_recursive = (puzzle) => {
@@ -108,6 +104,7 @@ const solveRowedPuzzle_recursive = (puzzle) => {
 	return false;
 };
 
+// output the rows, cols, and boxes for a given puzzle.
 export function testPuzzle(puzzle) {
 	const rowedPuzzle = convert(puzzle);
 
@@ -127,10 +124,12 @@ export function testPuzzle(puzzle) {
 	}
 }
 
+// change all falsey value to zeroes.
 const filterPuzzle = (puzzle) => {
 	return puzzle.map((row) => row.map((num) => (num ? num : 0)));
 };
 
+// solve a box formatted sudoku puzzle.
 const solvePuzzle = (puzzle) => {
 	const rowedPuzzle = convert(filterPuzzle(puzzle));
 	console.log("solving puzzle:", rowedPuzzle);
