@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import styles from "./InputSquare.module.scss";
 
-function InputSquare({ value, onUpdate }) {
+function InputSquare({ value, onUpdate, pattern }) {
 	/* const [myValue, setMyValue] = useState(initialValue); */
 	const [isEditing, setEditing] = useState(false);
 
@@ -10,14 +10,6 @@ function InputSquare({ value, onUpdate }) {
 		event.preventDefault();
 		onUpdate(event.target.value);
 		setEditing(false);
-
-		/* // validate and set the value.
-		if (/[1-9]?/.test(event.target.value)) {
-			onUpdate(event.target.value);
-			setEditing(false);
-		} else {
-			onUpdate(event.target.value);
-		} */
 	};
 
 	const handleSubmit = (event) => {
@@ -26,9 +18,16 @@ function InputSquare({ value, onUpdate }) {
 	};
 
 	const handleClick = (event) => {
-		onUpdate("");
-		event.target.focus();
-		setEditing(true);
+		let isMobile = !window.matchMedia("(min-width: 601px)").matches;
+		if (isMobile) {
+			let value = parseInt(event.target.value) || 0;
+			onUpdate((value + 1) % 10);
+			setEditing(false);
+		} else {
+			onUpdate("");
+			event.target.focus();
+			setEditing(true);
+		}
 	};
 
 	const baseStyle = styles.InputSquare;
@@ -42,8 +41,8 @@ function InputSquare({ value, onUpdate }) {
 				{isEditing ? (
 					<input
 						className={editStyle}
-						type="tel"
-						pattern="/d"
+						type="text"
+						pattern={pattern}
 						onChange={handleChange}
 						value={value}
 						maxLength={1}
