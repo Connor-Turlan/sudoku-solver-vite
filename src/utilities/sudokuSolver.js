@@ -15,6 +15,7 @@ const getCol = (box, cell) => {
 	return getRowAndColIndex(box, cell) % 9;
 };
 
+// convert a box puzzle into a row puzzle and vice versa.
 export const convert = (puzzle) => {
 	const newPuzzle = Array(9)
 		.fill(undefined)
@@ -61,13 +62,19 @@ const usedInBox = (puzzle, x, y, num) => {
 };
 
 const isSafe = (puzzle, row, col, num) => {
+	/* 
 	let urow = usedInRow(puzzle, row, num);
 	let ucol = usedInCol(puzzle, col, num);
 	let ubox = usedInBox(puzzle, Math.floor(col / 3), Math.floor(row / 3), num);
-	/* console.log(row, col, num, puzzle[row]);
-	console.log(Math.floor(row / 3), Math.floor(col / 3)); */
-	//console.log(`- ${row} | ${col} n: ${num}`, urow, ucol, ubox);
-	return !urow && !ucol && !ubox;
+	console.log(row, col, num, puzzle[row]);
+	console.log(Math.floor(row / 3), Math.floor(col / 3));
+	console.log(`- ${row} | ${col} n: ${num}`, urow, ucol, ubox); 
+	*/
+	return (
+		!usedInRow(puzzle, row, num) &&
+		!usedInCol(puzzle, col, num) &&
+		!usedInBox(puzzle, Math.floor(col / 3), Math.floor(row / 3), num)
+	);
 };
 
 // get the index of the first free location in the puzzle.
@@ -79,7 +86,6 @@ const getUnassignedLocation = (puzzle) => {
 const solveRowedPuzzle_recursive = (puzzle) => {
 	// get the next free cell.
 	const [row, col] = getUnassignedLocation(puzzle);
-	//console.log(row, col);
 
 	// if the cell is 9,9, the sudoku is solved.
 	if (row == 9 && col == 9) {
@@ -87,9 +93,8 @@ const solveRowedPuzzle_recursive = (puzzle) => {
 		return true;
 	}
 
-	// otherwise try insert 1 thru 9
+	// try insert 1 thru 9
 	for (let i = 1; i <= 9; i++) {
-		/* console.log(`try row:`, puzzle[row]); */
 		if (isSafe(puzzle, row, col, i)) {
 			puzzle[row][col] = i;
 			if (solveRowedPuzzle_recursive([...puzzle])) {
@@ -98,8 +103,7 @@ const solveRowedPuzzle_recursive = (puzzle) => {
 		}
 	}
 
-	// reset this cell and return.
-	//console.log("unsuitable", `row: ${row}`, puzzle[row]);
+	// if we can't insert a number, the current solve is wrong. reset this cell and return.
 	puzzle[row][col] = 0;
 	return false;
 };
