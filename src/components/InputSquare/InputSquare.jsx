@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import styles from "./InputSquare.module.scss";
 
-function InputSquare({ value, onUpdate, pattern }) {
+function InputSquare({ className, value, onUpdate, pattern }) {
 	/* const [myValue, setMyValue] = useState(initialValue); */
 	const [isEditing, setEditing] = useState(false);
 
@@ -30,10 +30,12 @@ function InputSquare({ value, onUpdate, pattern }) {
 		}
 	};
 
-	const baseStyle = styles.InputSquare;
-	const editStyle = [styles.InputSquare__Editing, styles.InputSquare].join(
-		" "
-	);
+	const baseStyle = [className || "", styles.InputSquare].join(" ");
+	const editStyle = [
+		className || "",
+		styles.InputSquare__Editing,
+		styles.InputSquare,
+	].join(" ");
 
 	return (
 		<>

@@ -12,6 +12,7 @@ function SudokuCell({ boxIndex, cellIndex }) {
 
 	return (
 		<InputSquare
+			className={styles.SudokuCell}
 			onUpdate={onUpdate}
 			value={state[boxIndex][cellIndex] || ""}
 		/>
