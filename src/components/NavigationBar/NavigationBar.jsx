@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import styles from "./NavigationBar.module.scss";
 
-function NavigationBar({ children }) {
+function NavigationBar({ className, children }) {
 	const hide = () => {
 		document.getElementById("navbarToggle").checked = false;
 	};
 
 	return (
-		<nav className={styles.NavigationBar}>
+		<nav className={styles.NavigationBar && className}>
 			<input
 				id="navbarToggle"
 				type="checkbox"

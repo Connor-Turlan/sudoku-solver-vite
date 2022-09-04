@@ -57,6 +57,49 @@ function App() {
 			<main className={styles.Game}>
 				<SudokuPuzzle state={game} setState={setGame} />
 			</main>
+			<details>
+				<summary>Test Newspaper Styling</summary>
+				<main className={styles.newspaper}>
+					<h1 className={styles.newspaper__title}>Newspaper</h1>
+					<NavigationBar className={styles.newspaper__subtitle}>
+						<div>
+							<div
+								className={styles.newspaper__subtitle_button}
+								onClick={clearGame}
+							>
+								Clear
+							</div>
+							<div
+								className={styles.newspaper__subtitle_button}
+								onClick={saveGame}
+							>
+								Save
+							</div>
+							<div
+								className={styles.newspaper__subtitle_button}
+								onClick={loadGame}
+							>
+								Load
+							</div>
+							<div
+								className={styles.newspaper__subtitle_button}
+								onClick={solveSudoku}
+							>
+								Solve
+							</div>
+							<div
+								className={styles.newspaper__subtitle_button}
+								onClick={testSudoku}
+							>
+								-Test-
+							</div>
+						</div>
+					</NavigationBar>
+					<main className={styles.Game}>
+						<SudokuPuzzle state={game} setState={setGame} />
+					</main>
+				</main>
+			</details>
 		</div>
 	);
 }

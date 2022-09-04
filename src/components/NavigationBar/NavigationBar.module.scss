@@ -134,7 +134,7 @@ $shadow: black;
 			flex-direction: row;
 		}
 
-		& > * {
+		& > button {
 			@include defaults.flex-center;
 
 			@include devices.phone {
