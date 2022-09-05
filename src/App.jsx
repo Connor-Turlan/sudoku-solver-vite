@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import styles from "./App.module.scss";
 import NavigationBar from "./components/NavigationBar/NavigationBar";
@@ -23,6 +24,7 @@ function App() {
 
 	const [game, setGame] = useState(initial);
 	const [savedGame, setSavedGame] = useState(undefined);
+	const [newspaperTitle, setTitle] = useState("...");
 
 	const clearGame = () => {
 		setGame(empty);
@@ -45,10 +47,33 @@ function App() {
 		testPuzzle(game);
 	};
 
+	useEffect(() => {
+		const getName = async () => {
+			const adjectivePromise = await fetch(
+				"https://random-word-form.herokuapp.com/random/adjective",
+				{ accept: "application/json" }
+			);
+			const nounPromise = await fetch(
+				"https://random-word-form.herokuapp.com/random/noun",
+				{ accept: "application/json" }
+			);
+
+			let adj = (await adjectivePromise.json())[0];
+			let noun = (await nounPromise.json())[0];
+
+			adj = adj.charAt(0).toUpperCase() + adj.slice(1);
+			noun = noun.charAt(0).toUpperCase() + noun.slice(1);
+
+			setTitle(`The ${adj} ${noun}`);
+		};
+
+		getName();
+	}, []);
+
 	return (
 		<div className={styles.App}>
 			<main className={styles.newspaper}>
-				<h1 className={styles.newspaper__title}>Newspaper Title</h1>
+				<h1 className={styles.newspaper__title}>{newspaperTitle}</h1>
 				<NavigationBar className={styles.newspaper__subtitle}>
 					<div>
 						<div
