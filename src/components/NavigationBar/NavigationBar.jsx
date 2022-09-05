@@ -6,9 +6,11 @@ function NavigationBar({ className, children }) {
 		document.getElementById("navbarToggle").checked = false;
 	};
 
+	const navStyle = [, styles.NavigationBar].join(" ");
+
 	return (
-		<nav className={styles.NavigationBar && className}>
-			<input
+		<nav className={className}>
+			{/* <input
 				id="navbarToggle"
 				type="checkbox"
 				className={styles.NavigationBar__Toggle}
@@ -16,7 +18,7 @@ function NavigationBar({ className, children }) {
 			<label
 				className={styles.NavigationBar__ToggleLabel}
 				htmlFor="NavigationBar__Menu"
-			/>
+			/> */}
 			<div onClick={hide} className={styles.NavigationBar__Buttons}>
 				{children}
 			</div>

@@ -48,7 +48,7 @@ function App() {
 	return (
 		<div className={styles.App}>
 			<main className={styles.newspaper}>
-				<h1 className={styles.newspaper__title}>Newspaper</h1>
+				<h1 className={styles.newspaper__title}>Newspaper Title</h1>
 				<NavigationBar className={styles.newspaper__subtitle}>
 					<div>
 						<div
