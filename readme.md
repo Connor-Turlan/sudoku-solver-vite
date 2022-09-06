@@ -1,5 +1,9 @@
 # Sudoku Solver
 
+<img src="preview.png" height="400px" width="400px" />
+
+[View the Project](https://connorturlan.github.io/sudoku-solver-vite/)
+
 ## Future Plans
 
 -   Add styling to the page. Fix navbar style.
