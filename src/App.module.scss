@@ -29,6 +29,7 @@ body {
 .App {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 
 	width: 100vw;
 	height: 100vh;
@@ -55,6 +56,7 @@ body {
 
 .newspaper {
 	margin: 4rem 2rem;
+	width: 100vh;
 
 	&__title {
 		margin-top: 0;
