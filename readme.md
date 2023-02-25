@@ -1,6 +1,6 @@
 # Sudoku Solver
 
-<img src="preview.png" height="400px" width="400px" />
+<img src="./docs/preview.png" height="400px" width="400px" />
 
 [View the Project](https://connorturlan.github.io/sudoku-solver-vite/)
 
